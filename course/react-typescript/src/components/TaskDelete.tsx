@@ -12,15 +12,15 @@ export const TaskDelete: React.FC<Props> = ({
   setTasks,
   deleteTasks,
 }) => {
-  const handleBackTask = (
+  const handleCheckTask = (
     e: React.ChangeEvent<HTMLInputElement>,
     i: number
   ) => {
     const newTasks = deleteTasks.map((task, _i) => {
       return _i === i ? { ...task, isDone: !e.target.checked } : task;
     });
-    setTasks([...tasks, ...newTasks]);
   };
+  const handleBackTask = () => {};
   return (
     <>
       <h2>完了したタスク一覧</h2>
@@ -30,11 +30,13 @@ export const TaskDelete: React.FC<Props> = ({
           <input
             type="checkbox"
             onChange={(e) => {
-              handleBackTask(e, index);
+              handleCheckTask(e, index);
             }}
           />
         </li>
       ))}
+      <br />
+      <input type="submit" onSubmit={handleBackTask} value="Redo" />
     </>
   );
 };
