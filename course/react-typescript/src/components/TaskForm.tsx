@@ -6,12 +6,16 @@ type Props = {
   setTasks: React.Dispatch<React.SetStateAction<Task[]>>;
   newTaskLabel: string;
   setNewTaskLabel: React.Dispatch<React.SetStateAction<string>>;
+  deleteTasks: Task[];
+  setDeleteTasks: React.Dispatch<React.SetStateAction<Task[]>>;
 };
 export const TaskForm: React.FC<Props> = ({
   tasks,
   setTasks,
   newTaskLabel,
   setNewTaskLabel,
+  deleteTasks,
+  setDeleteTasks,
 }) => {
   // フォームの値を保持する
   const handleNewTaskLabel = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -27,7 +31,10 @@ export const TaskForm: React.FC<Props> = ({
   // 完了したTaskを削除する
   const handleClearTasks = () => {
     const newTasks = tasks.filter((task) => !task.isDone);
+    const newDeleteTasks = tasks.filter((task) => task.isDone);
     setTasks(newTasks);
+    const deleteList = [...deleteTasks, ...newDeleteTasks];
+    setDeleteTasks(deleteList);
   };
   return (
     <>

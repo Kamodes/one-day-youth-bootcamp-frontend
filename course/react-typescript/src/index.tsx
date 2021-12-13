@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import { TaskList } from "./components/TaskList";
 import { TaskForm } from "./components/TaskForm";
+import { TaskDelete } from "./components/TaskDelete";
 import { request } from "./server";
 
 // TODOタスクの型
@@ -12,6 +13,7 @@ const App: React.VFC = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
   // 追加前のタスクを格納する
   const [newTaskLabel, setNewTaskLabel] = useState<string>("");
+  const [deleteTasks, setDeleteTasks] = useState<Task[]>([]);
   // ページマウント時にモックAPIからデータを取得
   useEffect(() => {
     request.fetchTasks((payload: Task[]) => setTasks(payload));
@@ -26,7 +28,17 @@ const App: React.VFC = () => {
       <TaskList {...{ tasks, setTasks }} />
 
       {/* タスク追加、削除 */}
-      <TaskForm {...{ tasks, setTasks, newTaskLabel, setNewTaskLabel }} />
+      <TaskForm
+        {...{
+          tasks,
+          setTasks,
+          newTaskLabel,
+          setNewTaskLabel,
+          deleteTasks,
+          setDeleteTasks,
+        }}
+      />
+      <TaskDelete {...{ deleteTasks }} />
     </div>
   );
 };
