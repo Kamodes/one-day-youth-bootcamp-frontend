@@ -38,7 +38,7 @@ const App: React.VFC = () => {
           setDeleteTasks,
         }}
       />
-      <TaskDelete {...{ deleteTasks }} />
+      <TaskDelete {...{ tasks, setTasks, deleteTasks }} />
     </div>
   );
 };
